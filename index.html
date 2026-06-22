@@ -827,7 +827,12 @@ footer{background:var(--dark);padding:3rem 4rem 2rem;border-top:1px solid rgba(7
       <a href="https://wa.me/254714240179?text=Hi!%20I'd%20like%20to%20discuss%20a%20project." class="wa-big reveal" target="_blank">💬 &nbsp;Message on WhatsApp</a>
     </div>
 
-    <form class="booking-form reveal-right" id="bookingForm" onsubmit="submitForm(event)" action="https://formsubmit.co/captaincharles679@gmail.com" method="POST">
+    <form class="booking-form reveal-right"
+      id="bookingForm"
+      onsubmit="return submitForm(event)"
+      action="https://formsubmit.co/captaincharles679@gmail.com"
+      method="POST">
+      
       <h3>📅 Book a Session</h3>
       <input type="hidden" name="_subject" value="New Booking Request from Kibui One Website">
       <input type="hidden" name="_captcha" value="false">
@@ -859,6 +864,9 @@ footer{background:var(--dark);padding:3rem 4rem 2rem;border-top:1px solid rgba(7
         </div>
       </div>
       <div class="form-group"><label>Project Details</label><textarea id="f-message" name="message" placeholder="Tell me about your project — what's the goal, audience, and any references?" required></textarea></div>
+      <input type="hidden"
+       name="_next"
+       value="https://captain612878.github.io/kibui-website//thank-you.html">
       <button class="submit-btn" type="submit">🚀 &nbsp;Send Booking Request</button>
     </form>
   </div>
@@ -1118,24 +1126,19 @@ document.querySelectorAll('.service-select-btn').forEach(b=>b.addEventListener('
 
 // ---- Form submit ----
 function submitForm(event){
-  event.preventDefault();
-  const form=document.getElementById('bookingForm');
-  const n=document.getElementById('f-name').value.trim();
-  const e=document.getElementById('f-email').value.trim();
-  const m=document.getElementById('f-message').value.trim();
-  if(!n||!e||!m){showToast('⚠️ Please fill in your name, email, and project details.',true);return;}
-  form.submit();
-}
-function showToast(msg,warn){
-  const t=document.getElementById('toast');
-  document.getElementById('toast-msg').textContent=msg;
-  t.style.borderColor=warn?'rgba(255,107,107,.4)':'rgba(78,195,224,.3)';
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3500);
-}
+  const n = document.getElementById('f-name').value.trim();
+  const e = document.getElementById('f-email').value.trim();
+  const m = document.getElementById('f-message').value.trim();
 
-// ---- Stagger cards ----
-document.querySelectorAll('.service-card,.testi-card,.gallery-item,.portfolio-card').forEach((el,i)=>{el.style.transitionDelay=(i*.07)+'s';});
+  if(!n || !e || !m){
+    event.preventDefault();
+    showToast('⚠️ Please fill in your name, email, and project details.', true);
+    return false;
+  }
+
+  showToast('🚀 Sending booking request...');
+  return true;
+}
 </script>
 </body>
 </html>
