@@ -831,6 +831,8 @@ footer{background:var(--dark);padding:3rem 4rem 2rem;border-top:1px solid rgba(7
       <h3>📅 Book a Session</h3>
       <input type="hidden" name="_subject" value="New Booking Request from Kibui One Website">
       <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="thank-you.html">
+      <input type="hidden" name="_template" value="table">
       <input type="hidden" id="serviceInput" name="service" value="">
       <div class="form-row">
         <div class="form-group"><label>Your Name</label><input type="text" id="f-name" name="name" placeholder="John Doe" required></div>
@@ -1117,12 +1119,12 @@ document.querySelectorAll('.service-select-btn').forEach(b=>b.addEventListener('
 // ---- Form submit ----
 function submitForm(event){
   event.preventDefault();
+  const form=document.getElementById('bookingForm');
   const n=document.getElementById('f-name').value.trim();
   const e=document.getElementById('f-email').value.trim();
   const m=document.getElementById('f-message').value.trim();
   if(!n||!e||!m){showToast('⚠️ Please fill in your name, email, and project details.',true);return;}
-  document.getElementById('bookingForm').submit();
-  showToast('🚀 Booking request is being sent...');
+  form.submit();
 }
 function showToast(msg,warn){
   const t=document.getElementById('toast');
